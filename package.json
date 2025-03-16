@@ -4,5 +4,20 @@
     "scripts": {
         "start": "vercel dev"
     },
-    "dependencies": {}
+    "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/elianoliver/Minha-Agenda-Fofinha.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/elianoliver/Minha-Agenda-Fofinha/issues"
+    },
+    "homepage": "https://github.com/elianoliver/Minha-Agenda-Fofinha#readme",
+    "description": "",
+    "dependencies": {
+        "@vercel/kv": "^3.0.0"
+    }
 }

@@ -120,7 +120,6 @@
     </div>
 
     <script>
-        // Função para coletar os dados da tabela e enviar para a API
         async function saveChanges() {
             const data = {};
             document.querySelectorAll('td[contenteditable]').forEach(td => {
@@ -147,7 +146,6 @@
             }
         }
 
-        // Carregar dados salvos ao abrir a página (opcional, depende do backend)
         async function loadData() {
             try {
                 const response = await fetch('/api/save');
@@ -161,7 +159,6 @@
             }
         }
 
-        // Carregar os dados ao abrir a página
         window.onload = loadData;
     </script>
 </body>

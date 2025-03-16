@@ -1,14 +1,11 @@
-const fs = require('fs').promises;
-const path = require('path');
+import { kv } from '@vercel/kv';
 
-module.exports = async (req, res) => {
-    const dataFile = path.join(__dirname, '../public/data.json');
-
+export default async function handler(req, res) {
     if (req.method === 'POST') {
         // Salvar os dados enviados pelo frontend
         const newData = req.body;
         try {
-            await fs.writeFile(dataFile, JSON.stringify(newData, null, 2));
+            await kv.set('agenda', JSON.stringify(newData));
             res.status(200).json({ message: 'Dados salvos com sucesso!' });
         } catch (error) {
             res.status(500).json({ message: 'Erro ao salvar dados', error: error.message });
@@ -16,12 +13,12 @@ module.exports = async (req, res) => {
     } else if (req.method === 'GET') {
         // Retornar os dados salvos
         try {
-            const data = await fs.readFile(dataFile, 'utf8');
-            res.status(200).json(JSON.parse(data));
+            const data = await kv.get('agenda');
+            res.status(200).json(data ? JSON.parse(data) : {});
         } catch (error) {
-            res.status(200).json({}); // Retorna vazio se o arquivo não existir ainda
+            res.status(500).json({ message: 'Erro ao carregar dados', error: error.message });
         }
     } else {
         res.status(405).json({ message: 'Método não permitido' });
     }
-};
+}
