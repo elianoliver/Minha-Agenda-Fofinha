@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Agenda Fofinha</title>
-    <style>
+    <link rel="stylesheet" href="style.css" />
+    <!-- <style>
         body {
             font-family: 'Comic Sans MS', 'Arial', sans-serif;
             background-color: #f9e4e8;
@@ -74,92 +75,176 @@
         button:hover {
             background-color: #ff9cbb;
         }
-    </style>
-</head>
-<body>
+    </style> -->
+  </head>
+  <body>
     <div class="container">
-        <h1>Minha Agenda Fofinha 🌸</h1>
+      <h1>Minha Agenda Fofinha 🌸</h1>
 
-        <h2>Segunda</h2>
-        <table>
-            <tr><th>Turno</th><th>Atividade</th></tr>
-            <tr><td contenteditable="true" id="segunda-manha">Manhã (8h-12h)</td><td contenteditable="true" id="segunda-manha-atividade">Rodízio: Ambulatório Caesm (Dr. Eduardo) ou avaliar pacientes HABM</td></tr>
-            <tr><td contenteditable="true" id="segunda-tarde">Tarde (13h-17h)</td><td contenteditable="true" id="segunda-tarde-atividade">Rodízio: Telemedicina (inicia 14h) ou Ambulatório (Dr. Marcos Kano)</td></tr>
-            <tr><td contenteditable="true" id="segunda-noite">Noite (17h-18:30h)</td><td contenteditable="true" id="segunda-noite-atividade">Fixo: Aula FAMERP</td></tr>
-        </table>
+      <h2>Segunda</h2>
+      <table>
+        <tr>
+          <th>Turno</th>
+          <th>Atividade</th>
+        </tr>
+        <tr>
+          <td contenteditable="true" id="segunda-manha">Manhã (8h-12h)</td>
+          <td contenteditable="true" id="segunda-manha-atividade">
+            Rodízio: Ambulatório Caesm (Dr. Eduardo) ou avaliar pacientes HABM
+          </td>
+        </tr>
+        <tr>
+          <td contenteditable="true" id="segunda-tarde">Tarde (13h-17h)</td>
+          <td contenteditable="true" id="segunda-tarde-atividade">
+            Rodízio: Telemedicina (inicia 14h) ou Ambulatório (Dr. Marcos Kano)
+          </td>
+        </tr>
+        <tr>
+          <td contenteditable="true" id="segunda-noite">Noite (17h-18:30h)</td>
+          <td contenteditable="true" id="segunda-noite-atividade">
+            Fixo: Aula FAMERP
+          </td>
+        </tr>
+      </table>
 
-        <h2>Terça</h2>
-        <table>
-            <tr><th>Turno</th><th>Atividade</th></tr>
-            <tr><td contenteditable="true" id="terca-manha-tarde">Manhã e Tarde (8h-17h)</td><td contenteditable="true" id="terca-manha-tarde-atividade">Fixo: Enfermaria HABM com Dr. Julio (8h-12h: discussão de caso + reunião familiar; 13h-14:15h: reunião multi; até 17h: evoluir pacientes e pendências)</td></tr>
-        </table>
+      <h2>Terça</h2>
+      <table>
+        <tr>
+          <th>Turno</th>
+          <th>Atividade</th>
+        </tr>
+        <tr>
+          <td contenteditable="true" id="terca-manha-tarde">
+            Manhã e Tarde (8h-17h)
+          </td>
+          <td contenteditable="true" id="terca-manha-tarde-atividade">
+            Fixo: Enfermaria HABM com Dr. Julio (8h-12h: discussão de caso +
+            reunião familiar; 13h-14:15h: reunião multi; até 17h: evoluir
+            pacientes e pendências)
+          </td>
+        </tr>
+      </table>
 
-        <h2>Quarta</h2>
-        <table>
-            <tr><th>Turno</th><th>Atividade</th></tr>
-            <tr><td contenteditable="true" id="quarta-manha">Manhã (8h-12h)</td><td contenteditable="true" id="quarta-manha-atividade">Rodízio: Ambulatório Caesm (Dr. Victor ou Dr. Julia) ou Ambulatório Cae (Dr. Gian, inicia 7h)</td></tr>
-            <tr><td contenteditable="true" id="quarta-tarde">Tarde (13h-17:30/18h)</td><td contenteditable="true" id="quarta-tarde-atividade">Fixo: Enfermaria HABM com Dr. Fernando (discussão de caso e reunião multi) + Aula Dra. Mayra (até setembro/outubro)</td></tr>
-        </table>
+      <h2>Quarta</h2>
+      <table>
+        <tr>
+          <th>Turno</th>
+          <th>Atividade</th>
+        </tr>
+        <tr>
+          <td contenteditable="true" id="quarta-manha">Manhã (8h-12h)</td>
+          <td contenteditable="true" id="quarta-manha-atividade">
+            Rodízio: Ambulatório Caesm (Dr. Victor ou Dr. Julia) ou Ambulatório
+            Cae (Dr. Gian, inicia 7h)
+          </td>
+        </tr>
+        <tr>
+          <td contenteditable="true" id="quarta-tarde">
+            Tarde (13h-17:30/18h)
+          </td>
+          <td contenteditable="true" id="quarta-tarde-atividade">
+            Fixo: Enfermaria HABM com Dr. Fernando (discussão de caso e reunião
+            multi) + Aula Dra. Mayra (até setembro/outubro)
+          </td>
+        </tr>
+      </table>
 
-        <h2>Quinta</h2>
-        <table>
-            <tr><th>Turno</th><th>Atividade</th></tr>
-            <tr><td contenteditable="true" id="quinta-manha">Manhã (8h-12h)</td><td contenteditable="true" id="quinta-manha-atividade">Rodízio: UBS - Clínica Médica (roda a cada 4 meses; 1x/mês interconsulta Psiquiatria) ou 1x/mês Hospital Municipal (9h-12h)</td></tr>
-            <tr><td contenteditable="true" id="quinta-tarde">Tarde (13h-17h)</td><td contenteditable="true" id="quinta-tarde-atividade">Rodízio: Ambulatório FAMERP Psiquiatria (Colaboradores, Infância/Adolescência ou Oncologia) + Aula Secretaria de Saúde (a cada 15 dias, 14h-17h)</td></tr>
-            <tr><td contenteditable="true" id="quinta-noite">Noite (17h-19/19:30h)</td><td contenteditable="true" id="quinta-noite-atividade">Fixo: Ambulatório Neurologia Cae</td></tr>
-        </table>
+      <h2>Quinta</h2>
+      <table>
+        <tr>
+          <th>Turno</th>
+          <th>Atividade</th>
+        </tr>
+        <tr>
+          <td contenteditable="true" id="quinta-manha">Manhã (8h-12h)</td>
+          <td contenteditable="true" id="quinta-manha-atividade">
+            Rodízio: UBS - Clínica Médica (roda a cada 4 meses; 1x/mês
+            interconsulta Psiquiatria) ou 1x/mês Hospital Municipal (9h-12h)
+          </td>
+        </tr>
+        <tr>
+          <td contenteditable="true" id="quinta-tarde">Tarde (13h-17h)</td>
+          <td contenteditable="true" id="quinta-tarde-atividade">
+            Rodízio: Ambulatório FAMERP Psiquiatria (Colaboradores,
+            Infância/Adolescência ou Oncologia) + Aula Secretaria de Saúde (a
+            cada 15 dias, 14h-17h)
+          </td>
+        </tr>
+        <tr>
+          <td contenteditable="true" id="quinta-noite">
+            Noite (17h-19/19:30h)
+          </td>
+          <td contenteditable="true" id="quinta-noite-atividade">
+            Fixo: Ambulatório Neurologia Cae
+          </td>
+        </tr>
+      </table>
 
-        <h2>Sexta</h2>
-        <table>
-            <tr><th>Turno</th><th>Atividade</th></tr>
-            <tr><td contenteditable="true" id="sexta-manha">Manhã (8h-12h)</td><td contenteditable="true" id="sexta-manha-atividade">Rodízio: Ambulatório FAMERP (Psicogeri ou Infantil) + 1x/mês aula para Dra. Simone e Dr. Fábio</td></tr>
-            <tr><td contenteditable="true" id="sexta-tarde">Tarde (13h-17h)</td><td contenteditable="true" id="sexta-tarde-atividade">Fixo: Ambulatório Caesm (Dr. Victor, pontualmente até 17h)</td></tr>
-        </table>
+      <h2>Sexta</h2>
+      <table>
+        <tr>
+          <th>Turno</th>
+          <th>Atividade</th>
+        </tr>
+        <tr>
+          <td contenteditable="true" id="sexta-manha">Manhã (8h-12h)</td>
+          <td contenteditable="true" id="sexta-manha-atividade">
+            Rodízio: Ambulatório FAMERP (Psicogeri ou Infantil) + 1x/mês aula
+            para Dra. Simone e Dr. Fábio
+          </td>
+        </tr>
+        <tr>
+          <td contenteditable="true" id="sexta-tarde">Tarde (13h-17h)</td>
+          <td contenteditable="true" id="sexta-tarde-atividade">
+            Fixo: Ambulatório Caesm (Dr. Victor, pontualmente até 17h)
+          </td>
+        </tr>
+      </table>
 
-        <button onclick="saveChanges()">Salvar Alterações</button>
+      <button onclick="saveChanges()">Salvar Alterações</button>
     </div>
 
     <script>
-        async function saveChanges() {
-            const data = {};
-            document.querySelectorAll('td[contenteditable]').forEach(td => {
-                data[td.id] = td.innerText;
-            });
+      async function saveChanges() {
+        const data = {};
+        document.querySelectorAll("td[contenteditable]").forEach((td) => {
+          data[td.id] = td.innerText;
+        });
 
-            try {
-                const response = await fetch('/api/save', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data),
-                });
+        try {
+          const response = await fetch("/api/save", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          });
 
-                const result = await response.json();
-                if (response.ok) {
-                    alert('Alterações salvas com sucesso! 🌸');
-                } else {
-                    alert('Erro ao salvar: ' + result.message);
-                }
-            } catch (error) {
-                alert('Erro ao conectar com o servidor: ' + error.message);
-            }
+          const result = await response.json();
+          if (response.ok) {
+            alert("Alterações salvas com sucesso! 😺");
+          } else {
+            alert("Erro ao salvar: " + result.message);
+          }
+        } catch (error) {
+          alert("Erro ao conectar com o servidor: " + error.message);
         }
+      }
 
-        async function loadData() {
-            try {
-                const response = await fetch('/api/save');
-                const data = await response.json();
-                for (const [id, value] of Object.entries(data)) {
-                    const td = document.getElementById(id);
-                    if (td) td.innerText = value;
-                }
-            } catch (error) {
-                console.error('Erro ao carregar dados:', error);
-            }
+      async function loadData() {
+        try {
+          const response = await fetch("/api/save");
+          const data = await response.json();
+          for (const [id, value] of Object.entries(data)) {
+            const td = document.getElementById(id);
+            if (td) td.innerText = value;
+          }
+        } catch (error) {
+          console.error("Erro ao carregar dados:", error);
         }
+      }
 
-        window.onload = loadData;
+      window.onload = loadData;
     </script>
-</body>
+  </body>
 </html>

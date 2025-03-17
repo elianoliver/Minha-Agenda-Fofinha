@@ -1,0 +1,140 @@
+/* Estilos para a Agenda de Gatinhos */
+body {
+    font-family: 'Comic Sans MS', 'Arial', sans-serif;
+    background-color: #f6f1f8;
+    color: #4e3d5b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    background-image: url('https://i.imgur.com/JkehJ9z.png');
+    background-repeat: repeat;
+    background-size: 100px;
+}
+
+.container {
+    background-color: #fff8f9;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    max-width: 800px;
+    width: 100%;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 20px;
+    width: 30px;
+    height: 30px;
+    background: #ffa7c4;
+    border-radius: 50%;
+    box-shadow: 30px 0 0 #ffd1dc, 60px 0 0 #b5a9c6;
+}
+
+h1 {
+    text-align: center;
+    color: #8d67ab;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 2px #d8c1f7;
+    position: relative;
+}
+
+h1::after {
+    content: "😺";
+    margin-left: 10px;
+}
+
+h2 {
+    color: #ac8dbc;
+    font-size: 1.8em;
+    margin-top: 25px;
+    border-bottom: 2px dashed #d8c1f7;
+    padding-bottom: 8px;
+    position: relative;
+}
+
+h2::before {
+    content: "🐾 ";
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e9d6ff;
+}
+
+th {
+    background-color: #d8c1f7;
+    color: #5a3d7a;
+}
+
+td {
+    background-color: #fff;
+}
+
+tr:nth-child(even) td {
+    background-color: #fcf7ff;
+}
+
+tr:hover td {
+    background-color: #f9e4ff;
+}
+
+[contenteditable="true"]:focus {
+    outline: 2px solid #bb8dce;
+    background-color: #fef6ff;
+}
+
+button {
+    background-color: #ac8dbc;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1.1em;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(172, 141, 188, 0.3);
+    position: relative;
+}
+
+button::before {
+    content: "🐱 ";
+}
+
+button:hover {
+    background-color: #8d67ab;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(172, 141, 188, 0.4);
+}
+
+/* Animações para elementos de gato */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.container::after {
+    content: "🐈";
+    position: absolute;
+    bottom: -15px;
+    right: 20px;
+    font-size: 30px;
+    animation: bounce 3s infinite ease-in-out;
+}
