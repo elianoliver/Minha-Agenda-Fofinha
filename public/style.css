@@ -57,6 +57,9 @@ h2 {
     border-bottom: 2px dashed #d8c1f7;
     padding-bottom: 8px;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 h2::before {
@@ -100,7 +103,7 @@ tr:hover td {
     background-color: #fef6ff;
 }
 
-button {
+button.save-btn {
     background-color: #ac8dbc;
     color: white;
     border: none;
@@ -114,20 +117,80 @@ button {
     position: relative;
 }
 
-button::before {
+button.save-btn::before {
     content: "🐱 ";
 }
 
-button:hover {
+button.save-btn:hover {
     background-color: #8d67ab;
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(172, 141, 188, 0.4);
 }
 
-/* Animações para elementos de gato */
+/* CRUD Controls */
+.acoes-header {
+    width: 60px;
+}
+
+.acoes {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+button.delete-btn {
+    background-color: #ff8fa3;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 16px;
+    padding: 0;
+    opacity: 0.7;
+}
+
+button.delete-btn:hover {
+    background-color: #ff5c7f;
+    transform: scale(1.1);
+    opacity: 1;
+}
+
+button.add-task {
+    background-color: #b5dda4;
+    color: #4a6c2f;
+    border: none;
+    border-radius: 15px;
+    padding: 5px 12px;
+    font-size: 0.7em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+button.add-task:hover {
+    background-color: #9ed47c;
+    transform: translateY(-1px);
+}
+
+/* Animações */
 @keyframes bounce {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; transform: translateX(0); }
+    to { opacity: 0; transform: translateX(-20px); }
+}
+
+tr.removing td {
+    animation: fadeOut 0.3s forwards;
 }
 
 .container::after {
@@ -137,4 +200,71 @@ button:hover {
     right: 20px;
     font-size: 30px;
     animation: bounce 3s infinite ease-in-out;
+}
+
+/* Notificações */
+.notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 12px 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    max-width: 300px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.notification.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.notification.success {
+    background-color: #d4f7d4;
+    border-left: 4px solid #6dbd6d;
+}
+
+.notification.error {
+    background-color: #ffd6d6;
+    border-left: 4px solid #ff7b7b;
+}
+
+.notification.warning {
+    background-color: #fff3cd;
+    border-left: 4px solid #ffb700;
+}
+
+/* Responsividade para dispositivos menores */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+        margin: 10px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.5em;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    button.add-task {
+        margin-top: 8px;
+        align-self: flex-start;
+    }
+
+    td, th {
+        padding: 10px 8px;
+        font-size: 0.9em;
+    }
 }

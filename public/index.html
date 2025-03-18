@@ -3,117 +3,57 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Agenda Fofinha</title>
+    <title>Agenda Gatinhos</title>
     <link rel="stylesheet" href="style.css" />
-    <!-- <style>
-        body {
-            font-family: 'Comic Sans MS', 'Arial', sans-serif;
-            background-color: #f9e4e8;
-            color: #5a3d55;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            background-color: #fff0f5;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
-            width: 100%;
-        }
-        h1 {
-            text-align: center;
-            color: #ff6f91;
-            font-size: 2.5em;
-            margin-bottom: 20px;
-        }
-        h2 {
-            color: #ff9cbb;
-            font-size: 1.8em;
-            margin-top: 20px;
-            border-bottom: 2px dashed #ffcad4;
-            padding-bottom: 5px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ffd1dc;
-        }
-        th {
-            background-color: #ffe5ec;
-            color: #ff6f91;
-        }
-        td {
-            background-color: #fff;
-        }
-        tr:hover {
-            background-color: #fff7f9;
-        }
-        [contenteditable="true"]:focus {
-            outline: 2px solid #ff9cbb;
-            background-color: #fef6f8;
-        }
-        button {
-            background-color: #ff6f91;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 1em;
-            margin-top: 20px;
-        }
-        button:hover {
-            background-color: #ff9cbb;
-        }
-    </style> -->
   </head>
   <body>
     <div class="container">
-      <h1>Minha Agenda Fofinha 🌸</h1>
+      <h1>Minha Agenda de Gatinhos</h1>
 
-      <h2>Segunda</h2>
+      <h2>Segunda <button class="add-task" onclick="addTask('Segunda')">+ Nova Tarefa</button></h2>
       <table>
         <tr>
           <th>Turno</th>
           <th>Atividade</th>
+          <th class="acoes-header">Ações</th>
         </tr>
-        <tr>
+        <tr data-id="segunda-manha">
           <td contenteditable="true" id="segunda-manha">Manhã (8h-12h)</td>
           <td contenteditable="true" id="segunda-manha-atividade">
             Rodízio: Ambulatório Caesm (Dr. Eduardo) ou avaliar pacientes HABM
           </td>
+          <td class="acoes">
+            <button class="delete-btn" onclick="deleteTask('segunda-manha')">🗑️</button>
+          </td>
         </tr>
-        <tr>
+        <tr data-id="segunda-tarde">
           <td contenteditable="true" id="segunda-tarde">Tarde (13h-17h)</td>
           <td contenteditable="true" id="segunda-tarde-atividade">
             Rodízio: Telemedicina (inicia 14h) ou Ambulatório (Dr. Marcos Kano)
           </td>
+          <td class="acoes">
+            <button class="delete-btn" onclick="deleteTask('segunda-tarde')">🗑️</button>
+          </td>
         </tr>
-        <tr>
+        <tr data-id="segunda-noite">
           <td contenteditable="true" id="segunda-noite">Noite (17h-18:30h)</td>
           <td contenteditable="true" id="segunda-noite-atividade">
             Fixo: Aula FAMERP
           </td>
+          <td class="acoes">
+            <button class="delete-btn" onclick="deleteTask('segunda-noite')">🗑️</button>
+          </td>
         </tr>
       </table>
 
-      <h2>Terça</h2>
+      <h2>Terça <button class="add-task" onclick="addTask('Terça')">+ Nova Tarefa</button></h2>
       <table>
         <tr>
           <th>Turno</th>
           <th>Atividade</th>
+          <th class="acoes-header">Ações</th>
         </tr>
-        <tr>
+        <tr data-id="terca-manha-tarde">
           <td contenteditable="true" id="terca-manha-tarde">
             Manhã e Tarde (8h-17h)
           </td>
@@ -122,23 +62,30 @@
             reunião familiar; 13h-14:15h: reunião multi; até 17h: evoluir
             pacientes e pendências)
           </td>
+          <td class="acoes">
+            <button class="delete-btn" onclick="deleteTask('terca-manha-tarde')">🗑️</button>
+          </td>
         </tr>
       </table>
 
-      <h2>Quarta</h2>
+      <h2>Quarta <button class="add-task" onclick="addTask('Quarta')">+ Nova Tarefa</button></h2>
       <table>
         <tr>
           <th>Turno</th>
           <th>Atividade</th>
+          <th class="acoes-header">Ações</th>
         </tr>
-        <tr>
+        <tr data-id="quarta-manha">
           <td contenteditable="true" id="quarta-manha">Manhã (8h-12h)</td>
           <td contenteditable="true" id="quarta-manha-atividade">
             Rodízio: Ambulatório Caesm (Dr. Victor ou Dr. Julia) ou Ambulatório
             Cae (Dr. Gian, inicia 7h)
           </td>
+          <td class="acoes">
+            <button class="delete-btn" onclick="deleteTask('quarta-manha')">🗑️</button>
+          </td>
         </tr>
-        <tr>
+        <tr data-id="quarta-tarde">
           <td contenteditable="true" id="quarta-tarde">
             Tarde (13h-17:30/18h)
           </td>
@@ -146,105 +93,84 @@
             Fixo: Enfermaria HABM com Dr. Fernando (discussão de caso e reunião
             multi) + Aula Dra. Mayra (até setembro/outubro)
           </td>
+          <td class="acoes">
+            <button class="delete-btn" onclick="deleteTask('quarta-tarde')">🗑️</button>
+          </td>
         </tr>
       </table>
 
-      <h2>Quinta</h2>
+      <h2>Quinta <button class="add-task" onclick="addTask('Quinta')">+ Nova Tarefa</button></h2>
       <table>
         <tr>
           <th>Turno</th>
           <th>Atividade</th>
+          <th class="acoes-header">Ações</th>
         </tr>
-        <tr>
+        <tr data-id="quinta-manha">
           <td contenteditable="true" id="quinta-manha">Manhã (8h-12h)</td>
           <td contenteditable="true" id="quinta-manha-atividade">
             Rodízio: UBS - Clínica Médica (roda a cada 4 meses; 1x/mês
             interconsulta Psiquiatria) ou 1x/mês Hospital Municipal (9h-12h)
           </td>
+          <td class="acoes">
+            <button class="delete-btn" onclick="deleteTask('quinta-manha')">🗑️</button>
+          </td>
         </tr>
-        <tr>
+        <tr data-id="quinta-tarde">
           <td contenteditable="true" id="quinta-tarde">Tarde (13h-17h)</td>
           <td contenteditable="true" id="quinta-tarde-atividade">
             Rodízio: Ambulatório FAMERP Psiquiatria (Colaboradores,
             Infância/Adolescência ou Oncologia) + Aula Secretaria de Saúde (a
             cada 15 dias, 14h-17h)
           </td>
+          <td class="acoes">
+            <button class="delete-btn" onclick="deleteTask('quinta-tarde')">🗑️</button>
+          </td>
         </tr>
-        <tr>
+        <tr data-id="quinta-noite">
           <td contenteditable="true" id="quinta-noite">
             Noite (17h-19/19:30h)
           </td>
           <td contenteditable="true" id="quinta-noite-atividade">
             Fixo: Ambulatório Neurologia Cae
           </td>
+          <td class="acoes">
+            <button class="delete-btn" onclick="deleteTask('quinta-noite')">🗑️</button>
+          </td>
         </tr>
       </table>
 
-      <h2>Sexta</h2>
+      <h2>Sexta <button class="add-task" onclick="addTask('Sexta')">+ Nova Tarefa</button></h2>
       <table>
         <tr>
           <th>Turno</th>
           <th>Atividade</th>
+          <th class="acoes-header">Ações</th>
         </tr>
-        <tr>
+        <tr data-id="sexta-manha">
           <td contenteditable="true" id="sexta-manha">Manhã (8h-12h)</td>
           <td contenteditable="true" id="sexta-manha-atividade">
             Rodízio: Ambulatório FAMERP (Psicogeri ou Infantil) + 1x/mês aula
             para Dra. Simone e Dr. Fábio
           </td>
+          <td class="acoes">
+            <button class="delete-btn" onclick="deleteTask('sexta-manha')">🗑️</button>
+          </td>
         </tr>
-        <tr>
+        <tr data-id="sexta-tarde">
           <td contenteditable="true" id="sexta-tarde">Tarde (13h-17h)</td>
           <td contenteditable="true" id="sexta-tarde-atividade">
             Fixo: Ambulatório Caesm (Dr. Victor, pontualmente até 17h)
           </td>
+          <td class="acoes">
+            <button class="delete-btn" onclick="deleteTask('sexta-tarde')">🗑️</button>
+          </td>
         </tr>
       </table>
 
-      <button onclick="saveChanges()">Salvar Alterações</button>
+      <button class="save-btn" onclick="saveChanges()">Salvar Alterações</button>
     </div>
 
-    <script>
-      async function saveChanges() {
-        const data = {};
-        document.querySelectorAll("td[contenteditable]").forEach((td) => {
-          data[td.id] = td.innerText;
-        });
-
-        try {
-          const response = await fetch("/api/save", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-          });
-
-          const result = await response.json();
-          if (response.ok) {
-            alert("Alterações salvas com sucesso! 😺");
-          } else {
-            alert("Erro ao salvar: " + result.message);
-          }
-        } catch (error) {
-          alert("Erro ao conectar com o servidor: " + error.message);
-        }
-      }
-
-      async function loadData() {
-        try {
-          const response = await fetch("/api/save");
-          const data = await response.json();
-          for (const [id, value] of Object.entries(data)) {
-            const td = document.getElementById(id);
-            if (td) td.innerText = value;
-          }
-        } catch (error) {
-          console.error("Erro ao carregar dados:", error);
-        }
-      }
-
-      window.onload = loadData;
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>
