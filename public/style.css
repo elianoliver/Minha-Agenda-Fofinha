@@ -134,8 +134,8 @@ button.save-btn:hover {
 }
 
 .acoes {
-    display: flex;
-    justify-content: center;
+    display: table-cell;
+    justify-items: center;
     gap: 5px;
 }
 
