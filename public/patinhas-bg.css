@@ -1,0 +1,19 @@
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #f6f1f8;
+  background-image:
+    radial-gradient(circle at 10% 20%, #ff9ebb33 5px, transparent 6px),
+    radial-gradient(circle at 15% 25%, #ff9ebb33 5px, transparent 6px),
+    radial-gradient(circle at 20% 20%, #ff9ebb33 5px, transparent 6px),
+    radial-gradient(circle at 15% 15%, #ff9ebb33 5px, transparent 6px),
+    radial-gradient(circle at 30% 30%, #d8c1f733 8px, transparent 9px);
+  background-size: 100px 100px;
+  background-repeat: repeat;
+  pointer-events: none;
+  z-index: -1;
+}
