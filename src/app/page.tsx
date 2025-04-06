@@ -4,16 +4,32 @@ import { useEffect, useState } from 'react'
 import AgendaDay from '../components/AgendaDay'
 import { showNotification } from '../utils/notifications'
 import DeleteConfirmationModal from '../components/DeleteConfirmationModal'
+import TaskFormModal from '../components/TaskFormModal'
 
 type DayData = {
   [key: string]: string
 }
 
+type TaskEditInfo = {
+  id: string
+  turno: string
+  atividade: string
+  dia: string
+} | null
+
 export default function Home() {
   const [data, setData] = useState<DayData>({})
   const [loading, setLoading] = useState(true)
-  const [modalOpen, setModalOpen] = useState(false)
+
+  // Estado para o modal de confirmação de exclusão
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false)
   const [taskToDelete, setTaskToDelete] = useState<string | null>(null)
+
+  // Estados para os novos modais
+  const [editModalOpen, setEditModalOpen] = useState(false)
+  const [createModalOpen, setCreateModalOpen] = useState(false)
+  const [taskToEdit, setTaskToEdit] = useState<TaskEditInfo>(null)
+  const [dayForNewTask, setDayForNewTask] = useState<string>('')
 
   // Carregar dados salvos quando a página iniciar
   useEffect(() => {
@@ -64,7 +80,7 @@ export default function Home() {
   // Abrir modal de confirmação para deletar
   function confirmDelete(rowId: string) {
     setTaskToDelete(rowId)
-    setModalOpen(true)
+    setDeleteModalOpen(true)
   }
 
   // Executar a deleção após confirmação
@@ -85,8 +101,56 @@ export default function Home() {
     saveChanges()
 
     // Fechar o modal
-    setModalOpen(false)
+    setDeleteModalOpen(false)
     setTaskToDelete(null)
+  }
+
+  // Abrir modal para edição de tarefa
+  function openEditModal(id: string, turno: string, atividade: string) {
+    // Extrair o dia do ID (exemplo: "segunda-123456789")
+    const dia = id.split('-')[0]
+    setTaskToEdit({ id, turno, atividade, dia })
+    setEditModalOpen(true)
+  }
+
+  // Abrir modal para criação de nova tarefa
+  function openCreateModal(dia: string) {
+    setDayForNewTask(dia)
+    setCreateModalOpen(true)
+  }
+
+  // Salvar edição de tarefa
+  function saveTaskEdit(turno: string, atividade: string) {
+    if (!taskToEdit) return
+
+    setData(prev => ({
+      ...prev,
+      [taskToEdit.id]: turno,
+      [`${taskToEdit.id}-atividade`]: atividade
+    }))
+
+    showNotification("Tarefa atualizada com sucesso! 😺", "success")
+    saveChanges()
+  }
+
+  // Criar nova tarefa
+  function createNewTask(turno: string, atividade: string) {
+    if (!dayForNewTask) return
+
+    // Criar novo ID único
+    const timestamp = new Date().getTime()
+    const rowId = `${dayForNewTask.toLowerCase()}-${timestamp}`
+
+    // Adicionar nova tarefa aos dados
+    setData(prev => ({
+      ...prev,
+      [rowId]: turno,
+      [`${rowId}-atividade`]: atividade,
+      [`row_${rowId}`]: rowId
+    }))
+
+    showNotification("Nova tarefa adicionada! 🐱", "success")
+    saveChanges()
   }
 
   // Atualizar dados quando um campo é editado
@@ -97,30 +161,11 @@ export default function Home() {
     }))
   }
 
-  // Adicionar nova tarefa
-  function addTask(dia: string) {
-    // Criar novo ID único
-    const timestamp = new Date().getTime()
-    const rowId = `${dia.toLowerCase()}-${timestamp}`
-
-    // Adicionar nova tarefa aos dados
-    setData(prev => ({
-      ...prev,
-      [rowId]: 'Novo turno',
-      [`${rowId}-atividade`]: 'Nova atividade',
-      [`row_${rowId}`]: rowId
-    }))
-
-    showNotification("Nova tarefa adicionada! 🐱", "success")
-
-    // Salvar alterações após adicionar
-    saveChanges()
-  }
-
   if (loading) {
     return (
       <div className="container">
         <h1>Carregando agenda...</h1>
+        <div style={{ textAlign: 'center', fontSize: '2rem' }}>🐱</div>
       </div>
     )
   }
@@ -133,50 +178,74 @@ export default function Home() {
         day="Segunda"
         data={data}
         onDelete={confirmDelete}
-        onAdd={() => addTask('Segunda')}
+        onAdd={() => openCreateModal('segunda')}
         onEdit={handleEdit}
+        onOpenEditModal={openEditModal}
       />
 
       <AgendaDay
         day="Terça"
         data={data}
         onDelete={confirmDelete}
-        onAdd={() => addTask('Terça')}
+        onAdd={() => openCreateModal('terça')}
         onEdit={handleEdit}
+        onOpenEditModal={openEditModal}
       />
 
       <AgendaDay
         day="Quarta"
         data={data}
         onDelete={confirmDelete}
-        onAdd={() => addTask('Quarta')}
+        onAdd={() => openCreateModal('quarta')}
         onEdit={handleEdit}
+        onOpenEditModal={openEditModal}
       />
 
       <AgendaDay
         day="Quinta"
         data={data}
         onDelete={confirmDelete}
-        onAdd={() => addTask('Quinta')}
+        onAdd={() => openCreateModal('quinta')}
         onEdit={handleEdit}
+        onOpenEditModal={openEditModal}
       />
 
       <AgendaDay
         day="Sexta"
         data={data}
         onDelete={confirmDelete}
-        onAdd={() => addTask('Sexta')}
+        onAdd={() => openCreateModal('sexta')}
         onEdit={handleEdit}
+        onOpenEditModal={openEditModal}
       />
 
       <button className="save-btn" onClick={saveChanges}>
         Salvar Alterações
       </button>
 
+      {/* Modal de confirmação de exclusão */}
       <DeleteConfirmationModal
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
+        isOpen={deleteModalOpen}
+        onClose={() => setDeleteModalOpen(false)}
         onConfirm={executeDelete}
+      />
+
+      {/* Modal de edição de tarefa */}
+      <TaskFormModal
+        isOpen={editModalOpen}
+        onClose={() => setEditModalOpen(false)}
+        onSave={saveTaskEdit}
+        title="Editar Tarefa"
+        initialTurno={taskToEdit?.turno || ''}
+        initialAtividade={taskToEdit?.atividade || ''}
+      />
+
+      {/* Modal de criação de tarefa */}
+      <TaskFormModal
+        isOpen={createModalOpen}
+        onClose={() => setCreateModalOpen(false)}
+        onSave={createNewTask}
+        title={`Nova Tarefa - ${dayForNewTask.charAt(0).toUpperCase() + dayForNewTask.slice(1)}`}
       />
     </div>
   )

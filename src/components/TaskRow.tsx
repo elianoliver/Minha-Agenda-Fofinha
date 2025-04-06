@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState } from 'react'
 
 interface TaskRowProps {
   id: string
@@ -8,16 +8,18 @@ interface TaskRowProps {
   atividade: string
   onDelete: () => void
   onEdit: (id: string, value: string) => void
+  onOpenEditModal: (id: string, turno: string, atividade: string) => void
 }
 
-export default function TaskRow({ id, turno, atividade, onDelete, onEdit }: TaskRowProps) {
+export default function TaskRow({
+  id,
+  turno,
+  atividade,
+  onDelete,
+  onEdit,
+  onOpenEditModal
+}: TaskRowProps) {
   const [isRemoving, setIsRemoving] = useState(false)
-  const turnoRef = useRef<HTMLTableCellElement>(null)
-  const atividadeRef = useRef<HTMLTableCellElement>(null)
-
-  const handleBlur = (e: React.FocusEvent<HTMLTableCellElement>, fieldId: string) => {
-    onEdit(fieldId, e.target.innerText)
-  }
 
   const handleDelete = () => {
     setIsRemoving(true)
@@ -27,25 +29,15 @@ export default function TaskRow({ id, turno, atividade, onDelete, onEdit }: Task
     }, 300)
   }
 
+  const handleRowClick = () => {
+    onOpenEditModal(id, turno, atividade)
+  }
+
   return (
-    <tr data-id={id} className={isRemoving ? 'removing' : ''}>
-      <td
-        ref={turnoRef}
-        contentEditable={true}
-        suppressContentEditableWarning={true}
-        onBlur={(e) => handleBlur(e, id)}
-      >
-        {turno}
-      </td>
-      <td
-        ref={atividadeRef}
-        contentEditable={true}
-        suppressContentEditableWarning={true}
-        onBlur={(e) => handleBlur(e, `${id}-atividade`)}
-      >
-        {atividade}
-      </td>
-      <td className="acoes">
+    <tr data-id={id} className={isRemoving ? 'removing' : ''} onClick={handleRowClick}>
+      <td>{turno}</td>
+      <td>{atividade}</td>
+      <td className="acoes" onClick={(e) => e.stopPropagation()}>
         <button
           className="delete-btn"
           title="Excluir tarefa"

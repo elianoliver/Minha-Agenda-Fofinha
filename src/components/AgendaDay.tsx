@@ -9,9 +9,17 @@ interface AgendaDayProps {
   onDelete: (id: string) => void
   onAdd: () => void
   onEdit: (id: string, value: string) => void
+  onOpenEditModal: (id: string, turno: string, atividade: string) => void
 }
 
-export default function AgendaDay({ day, data, onDelete, onAdd, onEdit }: AgendaDayProps) {
+export default function AgendaDay({
+  day,
+  data,
+  onDelete,
+  onAdd,
+  onEdit,
+  onOpenEditModal
+}: AgendaDayProps) {
   // Encontrar todas as tarefas para este dia
   const getTasksForDay = () => {
     // Procurar todas as entradas que começam com o dia (em minúsculas) seguido por hífen
@@ -59,6 +67,7 @@ export default function AgendaDay({ day, data, onDelete, onAdd, onEdit }: Agenda
               atividade={data[`${rowId}-atividade`] || ''}
               onDelete={() => onDelete(rowId)}
               onEdit={onEdit}
+              onOpenEditModal={onOpenEditModal}
             />
           ))}
 
