@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { getTurnoIcon, getIconFromTime } from './TurnoSelector'
+import { getIconFromTime } from './TurnoSelector'
 
 interface TaskRowProps {
   id: string
@@ -41,14 +41,13 @@ export default function TaskRow({
   // Obtém o ícone baseado nos horários, se disponíveis, ou no texto do turno
   const turnoIcon = horarioInicio && horarioFim
     ? getIconFromTime(horarioInicio, horarioFim)
-    : getTurnoIcon(turno)
+    : '🕒'; // Usar um ícone padrão quando não há horários
 
   return (
     <tr data-id={id} className={isRemoving ? 'removing' : ''} onClick={handleRowClick}>
       <td>
         <div className="turno-display">
           <span className="turno-icon">{turnoIcon}</span>
-          <span>{turno}</span>
           {horarioInicio && horarioFim && (
             <span className="turno-time">{horarioInicio}-{horarioFim}</span>
           )}

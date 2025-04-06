@@ -16,7 +16,6 @@ export default function TurnoSelector({
   onHorarioChange = () => {}
 }: TurnoSelectorProps) {
   const [isOpen, setIsOpen] = useState(false)
-  const [showTimeFields, setShowTimeFields] = useState(false)
   const [inicio, setInicio] = useState(horarioInicio)
   const [fim, setFim] = useState(horarioFim)
 
@@ -80,7 +79,8 @@ export default function TurnoSelector({
               className="horario-apply"
               onClick={(e) => {
                 e.stopPropagation();
-                onChange(`${inicio} - ${fim}`); // Atualiza o valor usando os horários
+                // Atualizamos o valor usando os horários sem exibir o label
+                onChange(`${inicio} - ${fim}`);
                 setIsOpen(false);
               }}
             >
@@ -121,24 +121,6 @@ export function getIconFromTime(inicio?: string, fim?: string): string {
   if (horarioMedio >= 360 && horarioMedio < 720) return '🌅'; // Manhã (06:00-12:00)
   if (horarioMedio >= 720 && horarioMedio < 1080) return '☀️'; // Tarde (12:00-18:00)
   return '🌙'; // Noite (18:00-00:00)
-}
-
-// Função de utilidade para obter o ícone para um turno específico (texto)
-export function getTurnoIcon(turno: string, inicio?: string, fim?: string): string {
-  // Se tiver horários definidos, usar esses para determinar o ícone
-  if (inicio && fim) {
-    return getIconFromTime(inicio, fim);
-  }
-
-  // Caso contrário, usar o texto do turno
-  const normalizedTurno = turno.toLowerCase().trim()
-
-  if (normalizedTurno.includes('manhã') || normalizedTurno.includes('manha')) return '🌅'
-  if (normalizedTurno.includes('tarde')) return '☀️'
-  if (normalizedTurno.includes('noite')) return '🌙'
-  if (normalizedTurno.includes('madrugada')) return '✨'
-
-  return '🕒' // Ícone padrão para outros turnos
 }
 
 // Função auxiliar para converter horário (HH:MM) para minutos desde meia-noite
