@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import AgendaDay from '../components/AgendaDay'
 import { showNotification } from '../utils/notifications'
+import DeleteConfirmationModal from '../components/DeleteConfirmationModal'
 
 type DayData = {
   [key: string]: string
@@ -11,6 +12,8 @@ type DayData = {
 export default function Home() {
   const [data, setData] = useState<DayData>({})
   const [loading, setLoading] = useState(true)
+  const [modalOpen, setModalOpen] = useState(false)
+  const [taskToDelete, setTaskToDelete] = useState<string | null>(null)
 
   // Carregar dados salvos quando a página iniciar
   useEffect(() => {
@@ -58,23 +61,32 @@ export default function Home() {
     }
   }
 
-  // Deletar tarefa
-  function deleteTask(rowId: string) {
-    // Confirmar exclusão
-    if (confirm("Tem certeza que deseja excluir esta tarefa? 🙀")) {
-      const newData = { ...data }
+  // Abrir modal de confirmação para deletar
+  function confirmDelete(rowId: string) {
+    setTaskToDelete(rowId)
+    setModalOpen(true)
+  }
 
-      // Remover dados relacionados a esta tarefa
-      delete newData[rowId]
-      delete newData[`${rowId}-atividade`]
-      delete newData[`row_${rowId}`]
+  // Executar a deleção após confirmação
+  function executeDelete() {
+    if (!taskToDelete) return
 
-      setData(newData)
-      showNotification("Tarefa excluída com sucesso! 😸", "success")
+    const newData = { ...data }
 
-      // Salvar alterações após exclusão
-      saveChanges()
-    }
+    // Remover dados relacionados a esta tarefa
+    delete newData[taskToDelete]
+    delete newData[`${taskToDelete}-atividade`]
+    delete newData[`row_${taskToDelete}`]
+
+    setData(newData)
+    showNotification("Tarefa excluída com sucesso! 😸", "success")
+
+    // Salvar alterações após exclusão
+    saveChanges()
+
+    // Fechar o modal
+    setModalOpen(false)
+    setTaskToDelete(null)
   }
 
   // Atualizar dados quando um campo é editado
@@ -109,6 +121,7 @@ export default function Home() {
     return (
       <div className="container">
         <h1>Carregando agenda...</h1>
+        <div style={{ textAlign: 'center', fontSize: '2rem' }}>🐱</div>
       </div>
     )
   }
@@ -120,7 +133,7 @@ export default function Home() {
       <AgendaDay
         day="Segunda"
         data={data}
-        onDelete={deleteTask}
+        onDelete={confirmDelete}
         onAdd={() => addTask('Segunda')}
         onEdit={handleEdit}
       />
@@ -128,7 +141,7 @@ export default function Home() {
       <AgendaDay
         day="Terça"
         data={data}
-        onDelete={deleteTask}
+        onDelete={confirmDelete}
         onAdd={() => addTask('Terça')}
         onEdit={handleEdit}
       />
@@ -136,7 +149,7 @@ export default function Home() {
       <AgendaDay
         day="Quarta"
         data={data}
-        onDelete={deleteTask}
+        onDelete={confirmDelete}
         onAdd={() => addTask('Quarta')}
         onEdit={handleEdit}
       />
@@ -144,7 +157,7 @@ export default function Home() {
       <AgendaDay
         day="Quinta"
         data={data}
-        onDelete={deleteTask}
+        onDelete={confirmDelete}
         onAdd={() => addTask('Quinta')}
         onEdit={handleEdit}
       />
@@ -152,7 +165,7 @@ export default function Home() {
       <AgendaDay
         day="Sexta"
         data={data}
-        onDelete={deleteTask}
+        onDelete={confirmDelete}
         onAdd={() => addTask('Sexta')}
         onEdit={handleEdit}
       />
@@ -160,6 +173,12 @@ export default function Home() {
       <button className="save-btn" onClick={saveChanges}>
         Salvar Alterações
       </button>
+
+      <DeleteConfirmationModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onConfirm={executeDelete}
+      />
     </div>
   )
 }
