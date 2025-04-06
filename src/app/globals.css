@@ -477,3 +477,159 @@ tr:hover td {
 .acoes {
   cursor: default;
 }
+
+/* Seletor de Turno */
+.turno-selector {
+  position: relative;
+  width: 100%;
+  font-family: inherit;
+}
+
+.turno-selected {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 15px;
+  border: 2px solid #e9d6ff;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.turno-selected:hover {
+  border-color: #bb8dce;
+}
+
+.turno-icon {
+  font-size: 1.2em;
+}
+
+.turno-label {
+  flex: 1;
+}
+
+.turno-arrow {
+  color: #8d67ab;
+  font-size: 0.7em;
+}
+
+.turno-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: white;
+  border: 2px solid #e9d6ff;
+  border-radius: 10px;
+  margin-top: 5px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 100;
+  max-height: 200px;
+  overflow-y: auto;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.turno-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.turno-option:hover {
+  filter: brightness(0.95);
+}
+
+.turno-option.selected {
+  border-left: 3px solid #ac8dbc;
+}
+
+.turno-custom {
+  padding: 10px;
+  border-top: 1px dashed #e9d6ff;
+}
+
+.turno-custom input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #e9d6ff;
+  border-radius: 8px;
+  font-size: 0.9em;
+}
+
+/* Estilo para os ícones na tabela */
+.turno-display {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.turno-display .turno-icon {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+}
+
+/* Estilos para o horário no seletor */
+.turno-time {
+  font-size: 0.8em;
+  opacity: 0.8;
+  background-color: rgba(255, 255, 255, 0.3);
+  padding: 2px 6px;
+  border-radius: 10px;
+  margin-left: 5px;
+}
+
+.turno-horarios {
+  padding: 15px;
+  border-top: 1px dashed #e9d6ff;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.horario-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.horario-group label {
+  font-size: 0.9em;
+  color: #8d67ab;
+  width: 50px;
+}
+
+.horario-group input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #e9d6ff;
+  border-radius: 6px;
+  font-size: 0.9em;
+}
+
+.horario-apply {
+  margin-top: 10px;
+  background-color: #ac8dbc;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background-color 0.2s;
+}
+
+.horario-apply:hover {
+  background-color: #8d67ab;
+}
+
+/* Destaque para a exibição do horário na tabela */
+.turno-display .turno-time {
+  margin-left: 10px;
+  font-size: 0.8em;
+  opacity: 0.7;
+}

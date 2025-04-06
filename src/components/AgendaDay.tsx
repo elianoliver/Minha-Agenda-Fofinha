@@ -33,8 +33,13 @@ export default function AgendaDay({
         if (rowId.startsWith(dayPrefix)) {
           rowIds.add(rowId)
         }
-      } else if (key.startsWith(dayPrefix) && !key.endsWith('-atividade')) {
-        // Também adiciona as tarefas que não têm prefixo 'row_' mas existem diretamente
+      } else if (
+        key.startsWith(dayPrefix) &&
+        !key.endsWith('-atividade') &&
+        !key.endsWith('-horario-inicio') &&
+        !key.endsWith('-horario-fim')
+      ) {
+        // Apenas adiciona as tarefas que são IDs principais, sem sufixos
         rowIds.add(key)
       }
     })
@@ -65,6 +70,8 @@ export default function AgendaDay({
               id={rowId}
               turno={data[rowId] || ''}
               atividade={data[`${rowId}-atividade`] || ''}
+              horarioInicio={data[`${rowId}-horario-inicio`] || ''}
+              horarioFim={data[`${rowId}-horario-fim`] || ''}
               onDelete={() => onDelete(rowId)}
               onEdit={onEdit}
               onOpenEditModal={onOpenEditModal}

@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react'
+import TurnoSelector from './TurnoSelector'
 
 interface TaskFormModalProps {
   isOpen: boolean
   onClose: () => void
-  onSave: (turno: string, atividade: string) => void
+  onSave: (turno: string, atividade: string, horarioInicio: string, horarioFim: string) => void
   title: string
   initialTurno?: string
   initialAtividade?: string
+  initialHorarioInicio?: string
+  initialHorarioFim?: string
 }
 
 export default function TaskFormModal({
@@ -15,25 +18,36 @@ export default function TaskFormModal({
   onSave,
   title,
   initialTurno = '',
-  initialAtividade = ''
+  initialAtividade = '',
+  initialHorarioInicio = '',
+  initialHorarioFim = ''
 }: TaskFormModalProps) {
   const [turno, setTurno] = useState(initialTurno)
   const [atividade, setAtividade] = useState(initialAtividade)
+  const [horarioInicio, setHorarioInicio] = useState(initialHorarioInicio)
+  const [horarioFim, setHorarioFim] = useState(initialHorarioFim)
 
   // Resetar campos quando o modal abrir com novos valores
   useEffect(() => {
     if (isOpen) {
       setTurno(initialTurno)
       setAtividade(initialAtividade)
+      setHorarioInicio(initialHorarioInicio)
+      setHorarioFim(initialHorarioFim)
     }
-  }, [isOpen, initialTurno, initialAtividade])
+  }, [isOpen, initialTurno, initialAtividade, initialHorarioInicio, initialHorarioFim])
 
   if (!isOpen) return null
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    onSave(turno, atividade)
+    onSave(turno, atividade, horarioInicio, horarioFim)
     onClose()
+  }
+
+  const handleHorarioChange = (inicio: string, fim: string) => {
+    setHorarioInicio(inicio)
+    setHorarioFim(fim)
   }
 
   return (
@@ -46,14 +60,13 @@ export default function TaskFormModal({
         <form onSubmit={handleSubmit}>
           <div className="modal-body">
             <div className="form-group">
-              <label htmlFor="turno">Turno</label>
-              <input
-                type="text"
-                id="turno"
+              <label htmlFor="turno">Turno e Horário</label>
+              <TurnoSelector
                 value={turno}
-                onChange={(e) => setTurno(e.target.value)}
-                placeholder="Ex: Manhã, Tarde, Noite..."
-                required
+                onChange={setTurno}
+                horarioInicio={horarioInicio}
+                horarioFim={horarioFim}
+                onHorarioChange={handleHorarioChange}
               />
             </div>
             <div className="form-group">

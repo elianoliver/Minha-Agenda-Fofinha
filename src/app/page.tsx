@@ -15,6 +15,8 @@ type TaskEditInfo = {
   turno: string
   atividade: string
   dia: string
+  horarioInicio?: string
+  horarioFim?: string
 } | null
 
 export default function Home() {
@@ -109,7 +111,17 @@ export default function Home() {
   function openEditModal(id: string, turno: string, atividade: string) {
     // Extrair o dia do ID (exemplo: "segunda-123456789")
     const dia = id.split('-')[0]
-    setTaskToEdit({ id, turno, atividade, dia })
+    const horarioInicio = data[`${id}-horario-inicio`] || ''
+    const horarioFim = data[`${id}-horario-fim`] || ''
+
+    setTaskToEdit({
+      id,
+      turno,
+      atividade,
+      dia,
+      horarioInicio,
+      horarioFim
+    })
     setEditModalOpen(true)
   }
 
@@ -120,13 +132,15 @@ export default function Home() {
   }
 
   // Salvar edição de tarefa
-  function saveTaskEdit(turno: string, atividade: string) {
+  function saveTaskEdit(turno: string, atividade: string, horarioInicio: string, horarioFim: string) {
     if (!taskToEdit) return
 
     setData(prev => ({
       ...prev,
       [taskToEdit.id]: turno,
-      [`${taskToEdit.id}-atividade`]: atividade
+      [`${taskToEdit.id}-atividade`]: atividade,
+      [`${taskToEdit.id}-horario-inicio`]: horarioInicio,
+      [`${taskToEdit.id}-horario-fim`]: horarioFim
     }))
 
     showNotification("Tarefa atualizada com sucesso! 😺", "success")
@@ -134,7 +148,7 @@ export default function Home() {
   }
 
   // Criar nova tarefa
-  function createNewTask(turno: string, atividade: string) {
+  function createNewTask(turno: string, atividade: string, horarioInicio: string, horarioFim: string) {
     if (!dayForNewTask) return
 
     // Criar novo ID único
@@ -146,6 +160,8 @@ export default function Home() {
       ...prev,
       [rowId]: turno,
       [`${rowId}-atividade`]: atividade,
+      [`${rowId}-horario-inicio`]: horarioInicio,
+      [`${rowId}-horario-fim`]: horarioFim,
       [`row_${rowId}`]: rowId
     }))
 
@@ -238,6 +254,8 @@ export default function Home() {
         title="Editar Tarefa"
         initialTurno={taskToEdit?.turno || ''}
         initialAtividade={taskToEdit?.atividade || ''}
+        initialHorarioInicio={taskToEdit?.horarioInicio || ''}
+        initialHorarioFim={taskToEdit?.horarioFim || ''}
       />
 
       {/* Modal de criação de tarefa */}
