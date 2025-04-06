@@ -181,7 +181,6 @@ export default function Home() {
     return (
       <div className="container">
         <h1>Carregando agenda...</h1>
-        <div style={{ textAlign: 'center', fontSize: '2rem' }}>🐱</div>
       </div>
     )
   }

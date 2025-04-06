@@ -8,46 +8,6 @@ interface TurnoSelectorProps {
   onHorarioChange?: (inicio: string, fim: string) => void
 }
 
-type TurnoOption = {
-  value: string
-  label: string
-  icon: string
-  backgroundColor: string
-  horarioPadrao?: { inicio: string; fim: string }
-}
-
-// Opções de turno com ícones, cores e horários padrão
-const TURNO_OPTIONS: TurnoOption[] = [
-  {
-    value: 'manhã',
-    label: 'Manhã',
-    icon: '🌅',
-    backgroundColor: '#ffe8cc',
-    horarioPadrao: { inicio: '06:00', fim: '12:00' }
-  },
-  {
-    value: 'tarde',
-    label: 'Tarde',
-    icon: '☀️',
-    backgroundColor: '#fff5cc',
-    horarioPadrao: { inicio: '12:00', fim: '18:00' }
-  },
-  {
-    value: 'noite',
-    label: 'Noite',
-    icon: '🌙',
-    backgroundColor: '#e0e0ff',
-    horarioPadrao: { inicio: '18:00', fim: '23:59' }
-  },
-  {
-    value: 'madrugada',
-    label: 'Madrugada',
-    icon: '✨',
-    backgroundColor: '#d6e0ff',
-    horarioPadrao: { inicio: '00:00', fim: '06:00' }
-  }
-]
-
 export default function TurnoSelector({
   value,
   onChange,
@@ -60,35 +20,11 @@ export default function TurnoSelector({
   const [inicio, setInicio] = useState(horarioInicio)
   const [fim, setFim] = useState(horarioFim)
 
-  // Encontrar a opção selecionada ou usar uma padrão
-  const selectedOption = TURNO_OPTIONS.find(
-    option => option.value.toLowerCase() === value.toLowerCase()
-  ) || {
-    value,
-    label: value || 'Selecionar turno',
-    icon: getIconFromTime(inicio, fim) || '⏰',
-    backgroundColor: '#f0f0f0'
-  }
-
   // Atualizar campos de horário quando as props mudarem
   useEffect(() => {
     setInicio(horarioInicio)
     setFim(horarioFim)
   }, [horarioInicio, horarioFim])
-
-  // Função para aplicar horários padrão ao selecionar um turno
-  const handleSelectTurno = (option: TurnoOption) => {
-    onChange(option.value)
-
-    if (option.horarioPadrao) {
-      setInicio(option.horarioPadrao.inicio)
-      setFim(option.horarioPadrao.fim)
-      onHorarioChange(option.horarioPadrao.inicio, option.horarioPadrao.fim)
-    }
-
-    setIsOpen(false)
-    setShowTimeFields(true)
-  }
 
   // Atualizar horários quando os campos mudam
   const handleHorarioChange = (tipo: 'inicio' | 'fim', value: string) => {
@@ -101,50 +37,26 @@ export default function TurnoSelector({
     }
   }
 
+  const icon = getIconFromTime(inicio, fim) || '⏰';
+
   return (
     <div className="turno-selector">
       <div
         className="turno-selected"
         onClick={() => setIsOpen(!isOpen)}
-        style={{ backgroundColor: selectedOption.backgroundColor }}
+        style={{ backgroundColor: '#f0f0f0' }}
       >
-        <span className="turno-icon">{selectedOption.icon}</span>
-        <span className="turno-label">{selectedOption.label}</span>
-        {showTimeFields && inicio && fim && (
+        <span className="turno-icon">{icon}</span>
+        {inicio && fim ? (
           <span className="turno-time">{inicio} - {fim}</span>
+        ) : (
+          <span className="turno-placeholder">Selecione horários</span>
         )}
         <span className="turno-arrow">{isOpen ? '▲' : '▼'}</span>
       </div>
 
       {isOpen && (
-        <div className="turno-options">
-          {TURNO_OPTIONS.map(option => (
-            <div
-              key={option.value}
-              className={`turno-option ${option.value === selectedOption.value ? 'selected' : ''}`}
-              onClick={() => handleSelectTurno(option)}
-              style={{ backgroundColor: option.backgroundColor }}
-            >
-              <span className="turno-icon">{option.icon}</span>
-              <span className="turno-label">{option.label}</span>
-              {option.horarioPadrao && (
-                <span className="turno-time">{option.horarioPadrao.inicio} - {option.horarioPadrao.fim}</span>
-              )}
-            </div>
-          ))}
-
-          {/* Opção para turno personalizado */}
-          <div className="turno-custom">
-            <input
-              type="text"
-              placeholder="Outro turno..."
-              value={!TURNO_OPTIONS.find(o => o.value === value) ? value : ''}
-              onChange={(e) => onChange(e.target.value)}
-              onClick={(e) => e.stopPropagation()}
-            />
-          </div>
-
-          {/* Campos de horário */}
+        <div className="turno-options" style={{ maxHeight: '200px', overflow: 'auto' }}>
           <div className="turno-horarios">
             <div className="horario-group">
               <label>Início:</label>
@@ -168,7 +80,7 @@ export default function TurnoSelector({
               className="horario-apply"
               onClick={(e) => {
                 e.stopPropagation();
-                setShowTimeFields(true);
+                onChange(`${inicio} - ${fim}`); // Atualiza o valor usando os horários
                 setIsOpen(false);
               }}
             >
@@ -181,7 +93,7 @@ export default function TurnoSelector({
   )
 }
 
-// Função para determinar o ícone com base nos horários
+// Manter as funções auxiliares para determinar ícones
 export function getIconFromTime(inicio?: string, fim?: string): string {
   if (!inicio || !fim) return '🕒';
 
