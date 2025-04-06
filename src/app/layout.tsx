@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   description: 'Minha agenda de gatinhos criada com Next.js',
   manifest: '/manifest.json',
   icons: {
-    apple: '/icon-192x192.png',
+    apple: '/apple-touch-icon.png',
   }
 }
 
@@ -38,6 +38,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
+      <head>
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Agenda Gatinhos" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+      </head>
       <body>
         {children}
         <ServiceWorkerRegister />
